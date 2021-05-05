@@ -1,6 +1,8 @@
 #include "DFA.h"
 #include <iostream>
 #include <bits/stdc++.h>
+#include <iterator>
+
 using namespace std;
 vector<DFA_State*>Table;
 int Count = 2;
@@ -186,13 +188,27 @@ map<int, map<string, int>> get_graph (){
             second_map.insert({input, next_id});
         }
         graph.insert({current_id, second_map});
+
+        second_map.clear();
     }
     print_graph(graph);
     return graph;
-
 }
 
 void print_graph(map<int, map<string, int>> graph){
-    cout<<"\n \n";
+    cout<<graph[1]["1"];
+    // graph[1] -> maptT
+    //Print your graph here
+    //map<int, map<string, int>> graph;
+    map<int, map<string, int>>::iterator itr1;
+    map<string, int>::iterator itr2;
+    for(itr1 =  graph.begin(); itr1 !=  graph.end(); ++itr1){
+        cout<<"\n state id is "<<itr1->first<<"\n";
+        for(itr2 = itr1->second.begin(); itr2 != itr1->second.end(); ++itr2)
+            cout<<"under input "<< itr2->first<<"  it goes to state "<<itr2->second<<"\n";
+        cout<<"*******************"<<"\n";
+    }
 }
+
+
 

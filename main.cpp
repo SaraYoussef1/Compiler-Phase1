@@ -58,10 +58,11 @@ int main()
     edge.input_symbol.name = "0";
     edge.next = &A;
     F.transitions.push_back(edge);
-
+/*
     cout << "current state: " << A.id << " input: " << A.transitions[0].input_symbol.name << " new state " << A.transitions[0].next->id << "\n";
     cout << "current state: " << B.id << " input: " << B.transitions[0].input_symbol.name << " new state " << B.transitions[0].next->id << "\n";
     cout << "current state: " << B.id << " input: " << B.transitions[1].input_symbol.name << " new state " << B.transitions[1].next->id << "\n";
+    */
     //cout<<"hiiii"<<endl;
     a->id = 1;
     a->subset_ids.insert(1);
