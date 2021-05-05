@@ -1,7 +1,8 @@
-#include "DFA.h"
 #include <iostream>
 #include <bits/stdc++.h>
 #include <iterator>
+#include "DFA.h"
+
 using namespace std;
 vector<DFA_State*>Table;
 int Count = 2;
@@ -135,7 +136,6 @@ void Subset_Construction(NFA_State* original)
         t++;
     }
 }
-
 
 void test(DFA_State* a)
 {

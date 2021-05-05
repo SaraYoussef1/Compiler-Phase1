@@ -1,13 +1,13 @@
 # depslib dependency file v1.0
-1620235557 source:/home/sara/work-space/c++/compiler/phase1/DFA.cpp
-	"DFA.h"
+1620245691 source:/home/sara/work-space/c++/compiler/phase1/DFA.cpp
 	<iostream>
 	<bits/stdc++.h>
 	<iterator>
-
-1620235491 source:/home/sara/work-space/c++/compiler/phase1/main.cpp
-	<iostream>
 	"DFA.h"
+
+1620254711 source:/home/sara/work-space/c++/compiler/phase1/main.cpp
+	<iostream>
+	"minimization.h"
 
 1620219742 source:/home/sara/work-space/c++/compiler/phase1/NFA.cpp
 	"NFA.h"
@@ -24,5 +24,13 @@
 	"NFA.h"
 	<bits/stdc++.h>
 
-1620219508 source:/home/sara/work-space/c++/compiler/phase1/minimization.cpp
+1620254199 source:/home/sara/work-space/c++/compiler/phase1/minimization.cpp
+	<iostream>
+	"minimization.h"
+	<map>
+
+1620251637 /home/sara/work-space/c++/compiler/phase1/minimization.h
+	<iostream>
+	<map>
+	"DFA.h"
 
