@@ -1,23 +1,23 @@
 # depslib dependency file v1.0
-1620231476 source:/home/sara/work-space/c++/compiler/phase1/DFA.cpp
+1620235557 source:/home/sara/work-space/c++/compiler/phase1/DFA.cpp
 	"DFA.h"
 	<iostream>
 	<bits/stdc++.h>
 	<iterator>
 
-1620231005 source:/home/sara/work-space/c++/compiler/phase1/main.cpp
+1620235491 source:/home/sara/work-space/c++/compiler/phase1/main.cpp
 	<iostream>
 	"DFA.h"
 
 1620219742 source:/home/sara/work-space/c++/compiler/phase1/NFA.cpp
 	"NFA.h"
 
-1620219742 /home/sara/work-space/c++/compiler/phase1/NFA.h
+1620231747 /home/sara/work-space/c++/compiler/phase1/NFA.h
 	<iostream>
 	<vector>
 	<bits/stdc++.h>
 
-1620231476 /home/sara/work-space/c++/compiler/phase1/DFA.h
+1620235557 /home/sara/work-space/c++/compiler/phase1/DFA.h
 	<iostream>
 	<vector>
 	<map>

@@ -16,6 +16,7 @@ struct Transition{
 
 struct NFA_State {
     int id;
+    bool accept_state_flag = false; //0 not accepting ,1 for accepting.
     vector <Transition> transitions;
 };
 

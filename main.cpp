@@ -2,7 +2,6 @@
 #include <iostream>
 #include "DFA.h"
 //#include "NFA.h"
-
 using namespace std;
 
 int main()
@@ -58,6 +57,8 @@ int main()
     edge.input_symbol.name = "0";
     edge.next = &A;
     F.transitions.push_back(edge);
+
+    C.accept_state_flag = true;
 /*
     cout << "current state: " << A.id << " input: " << A.transitions[0].input_symbol.name << " new state " << A.transitions[0].next->id << "\n";
     cout << "current state: " << B.id << " input: " << B.transitions[0].input_symbol.name << " new state " << B.transitions[0].next->id << "\n";
@@ -67,6 +68,7 @@ int main()
     a->id = 1;
     a->subset_ids.insert(1);
     a->subset.insert(&A);
+
     test(a);
 
 
