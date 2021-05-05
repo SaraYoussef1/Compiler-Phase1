@@ -8,6 +8,7 @@ using namespace std;
 
 struct DFA_State{
     int id;
+    bool accept_state_flag = false; //0 not accepting ,1 for accepting.
     set <NFA_State*> subset;
     set <int> subset_ids; //of NFA_state
     //string represents the content of input_symbol
@@ -16,8 +17,13 @@ struct DFA_State{
     map <string, set<int>> Group_ids;
 };
 
+struct DFA_Graph{
+    bool acceptance_state;
+    map<string, int> next_state;
+};
+
 
 void Move_To(DFA_State *Basic_node);
 void test(DFA_State *Basic_node);
-map<int, map<string, int>> get_graph ();
-void print_graph(map<int, map<string, int>> graph);
+map<int, DFA_Graph> get_graph ();
+void print_graph(map<int, DFA_Graph> graph);

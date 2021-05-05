@@ -2,11 +2,11 @@
 #include <iostream>
 #include <bits/stdc++.h>
 #include <iterator>
-
 using namespace std;
 vector<DFA_State*>Table;
 int Count = 2;
 template<typename T>
+
 bool isEqual(std::set<T> const& v1, std::set<T> const& v2)
 {
     return (v1.size() == v2.size() &&
@@ -54,6 +54,7 @@ void Move_To(DFA_State* Basic_node) //struct node
     set<NFA_State*> Initial_state = Basic_node->subset;
     map <string, set<NFA_State*>> temp_symbols;
     map <string, set<int>> temp_ids;
+    map<string, bool> flag_accept;
     for (auto i : Initial_state)//int i=0;i<Initial_state.size();i++
     {
         vector<Transition> Total_Transition = i->transitions;
@@ -61,14 +62,18 @@ void Move_To(DFA_State* Basic_node) //struct node
         for (int j = 0; j < Total_Transition.size(); j++)
         {
             if (Total_Transition[j].input_symbol.name == "e") continue;
+
+            if (Total_Transition[j].next->accept_state_flag)flag_accept[Total_Transition[j].input_symbol.name] = true; //check if the next state is accept or not .
+
             temp_symbols[Total_Transition[j].input_symbol.name].insert(Total_Transition[j].next);  //push the next node .
             temp_ids[Total_Transition[j].input_symbol.name].insert((Total_Transition[j].next)->id);
-            // part of epsilon ..
-            vector <struct NFA_State*> Epsilon_state = E_closure(Total_Transition[j].next);
+
+            vector <struct NFA_State*> Epsilon_state = E_closure(Total_Transition[j].next);         // part of epsilon ..
             if (Epsilon_state.size() != 0) //epsilon of each reachable node.
             {
                 for (auto item : Epsilon_state)
                 {
+                    if (item->accept_state_flag)flag_accept[Total_Transition[j].input_symbol.name] = true; //check if the next state is accept or not for epsilon state.
                     temp_symbols[Total_Transition[j].input_symbol.name].insert(item); //push epsilon of each reachable node.
                     temp_ids[Total_Transition[j].input_symbol.name].insert(item->id);
                 }
@@ -85,6 +90,7 @@ void Move_To(DFA_State* Basic_node) //struct node
             temp->id = Count++; //cout<<i.first<<endl;
             temp->subset = temp_symbols[i.first]; //i.first mean input;
             temp->subset_ids = temp_ids[i.first];
+            temp->accept_state_flag = flag_accept[i.first];
             Table.push_back(temp);
 
         }
@@ -101,7 +107,6 @@ void Move_To(DFA_State* Basic_node) //struct node
     Basic_node->Group_ids = temp_ids;
 }
 
-
 void Subset_Construction(NFA_State* original)
 {
     // prepare the initial state by original.
@@ -109,13 +114,14 @@ void Subset_Construction(NFA_State* original)
     a->id = 1;
     a->subset.insert(original);
     a->subset_ids.insert(original->id);
-
+    if (original->accept_state_flag) a->accept_state_flag = true;
     //call epsilon .
     vector <struct NFA_State*> Epsilon_state = E_closure(original);
     if (Epsilon_state.size() != 0) //epsilon of each reachable node.
     {
         for (auto item : Epsilon_state)
         {
+            if (!(a->accept_state_flag)&&(item->accept_state_flag)) a->accept_state_flag = true;
             a->subset.insert(item);
             a->subset_ids.insert(item->id);
         }
@@ -150,7 +156,7 @@ void test(DFA_State* a)
         {
              cout<< item << " ";
         }
-        cout << "}";
+        cout << "} accepted falg = "<<Table[i]->accept_state_flag<<" ";
         for (auto const& pair : Table[i]->Group_ids) {
             std::cout << " transition {" << pair.first << ": ";
 
@@ -165,15 +171,20 @@ void test(DFA_State* a)
             cout << "}\n";
         }
     }
+
 }
 
-map<int, map<string, int>> get_graph (){
+map<int, DFA_Graph> get_graph (){
     //first map: DFA state id with DFA transitions
     //second map: input symbol with the id of corresponding reached DFA state
-    map<int, map<string, int>> graph;
-    map<string, int> second_map;
+    DFA_Graph state_info;
+    map<string, int> transition_map;
+    map<int, DFA_Graph> graph;
+
+
     for(int i=0; i<Table.size(); i++){
         int current_id = Table[i]->id;
+        bool accepted = Table[i]->accept_state_flag;
         map <string, set<NFA_State*>> transition = Table[i]->symbols;
         for(auto item : transition){
             string input = item.first;
@@ -185,26 +196,30 @@ map<int, map<string, int>> get_graph (){
                     break;
                 }
             }
-            second_map.insert({input, next_id});
+            transition_map.insert({input, next_id});
         }
-        graph.insert({current_id, second_map});
+        state_info.acceptance_state = accepted;
+        state_info.next_state = transition_map;
 
-        second_map.clear();
+        graph.insert({current_id, state_info});
+
+        transition_map.clear();
     }
     print_graph(graph);
     return graph;
 }
 
-void print_graph(map<int, map<string, int>> graph){
-    cout<<graph[1]["1"];
+//make the map = struct of this map + acceptable state
+void print_graph(map<int, DFA_Graph> graph){
+    cout<<"\n *******************"<<"\n";
     // graph[1] -> maptT
     //Print your graph here
     //map<int, map<string, int>> graph;
-    map<int, map<string, int>>::iterator itr1;
+    map<int, DFA_Graph>::iterator itr1;
     map<string, int>::iterator itr2;
     for(itr1 =  graph.begin(); itr1 !=  graph.end(); ++itr1){
-        cout<<"\n state id is "<<itr1->first<<"\n";
-        for(itr2 = itr1->second.begin(); itr2 != itr1->second.end(); ++itr2)
+        cout<<"\n state id is: "<<itr1->first<<"\n its accepting state is " << itr1->second.acceptance_state<<"\n";
+        for(itr2 = itr1->second.next_state.begin(); itr2 != itr1->second.next_state.end(); ++itr2)
             cout<<"under input "<< itr2->first<<"  it goes to state "<<itr2->second<<"\n";
         cout<<"*******************"<<"\n";
     }
