@@ -24,12 +24,13 @@
 	"NFA.h"
 	<bits/stdc++.h>
 
-1620254199 source:/home/sara/work-space/c++/compiler/phase1/minimization.cpp
+1620261206 source:/home/sara/work-space/c++/compiler/phase1/minimization.cpp
 	<iostream>
 	"minimization.h"
 	<map>
+	<set>
 
-1620251637 /home/sara/work-space/c++/compiler/phase1/minimization.h
+1620259824 /home/sara/work-space/c++/compiler/phase1/minimization.h
 	<iostream>
 	<map>
 	"DFA.h"

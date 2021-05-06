@@ -73,7 +73,7 @@ int main()
 
     //get_graph -> primary DFA
     //table_filling -> minimized DFA
-    table_filling(get_graph());
+    minimize_graph(get_graph());
 
     return 0;
 }

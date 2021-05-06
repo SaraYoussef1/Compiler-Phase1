@@ -3,5 +3,7 @@
 #include "DFA.h"
 using namespace std;
 
-void table_filling(map<int, DFA_Graph> graph);
-bool mark(map<int, DFA_Graph> graph, int id1, int id2);
+map<int, DFA_Graph> minimize_graph(map<int, DFA_Graph> graph);
+vector<set<int>> table_filling(map<int, DFA_Graph> graph);
+void join_states(vector<set<int>> &equivalent_states, int id1, int id2);
+map<int, DFA_Graph> minimized(map<int, DFA_Graph> graph, vector<set<int>> equivalent_states);
