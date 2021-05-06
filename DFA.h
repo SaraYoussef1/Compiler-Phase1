@@ -9,6 +9,7 @@ using namespace std;
 struct DFA_State{
     int id;
     bool accept_state_flag = false; //0 not accepting ,1 for accepting.
+    string name;
     set <NFA_State*> subset;
     set <int> subset_ids; //of NFA_state
     //string represents the content of input_symbol
@@ -19,6 +20,7 @@ struct DFA_State{
 
 struct DFA_Graph{
     bool acceptance_state;
+    string name;
     map<string, int> next_state;
 };
 

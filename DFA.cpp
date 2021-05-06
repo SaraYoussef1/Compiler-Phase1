@@ -185,6 +185,7 @@ map<int, DFA_Graph> get_graph (){
     for(int i=0; i<Table.size(); i++){
         int current_id = Table[i]->id;
         bool accepted = Table[i]->accept_state_flag;
+        string type_name = Table[i]->name;
         map <string, set<NFA_State*>> transition = Table[i]->symbols;
         for(auto item : transition){
             string input = item.first;
@@ -199,6 +200,7 @@ map<int, DFA_Graph> get_graph (){
             transition_map.insert({input, next_id});
         }
         state_info.acceptance_state = accepted;
+        state_info.name = type_name;
         state_info.next_state = transition_map;
 
         graph.insert({current_id, state_info});
