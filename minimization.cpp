@@ -15,7 +15,8 @@ map<int, DFA_Graph> minimize_graph(map<int, DFA_Graph> graph){
 vector<set<int>> table_filling(map<int, DFA_Graph> graph){
     int states_no = graph.size();
     //table to do minimization through
-    int table[states_no-1][states_no-1] = {};
+    int table[states_no-1][states_no-1];
+    memset(table,0,sizeof table);
     //array where indx+1 represents state id
     //& its value represents whether it is an accepting state or not
     int accepting[states_no+1];
