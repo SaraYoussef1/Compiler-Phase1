@@ -20,7 +20,7 @@ struct DFA_State{
 
 struct DFA_Graph{
     bool acceptance_state;
-    string name;
+    string name="";
     map<string, int> next_state;
 };
 
